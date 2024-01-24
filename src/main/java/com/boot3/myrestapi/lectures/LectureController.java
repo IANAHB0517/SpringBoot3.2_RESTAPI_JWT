@@ -14,9 +14,10 @@ import java.net.URI;
 @RequestMapping(value = "/api/lectures", produces = MediaTypes.HAL_JSON_VALUE)
 public class LectureController {
     @PostMapping
-    public ResponseEntity createLecture(@RequestBody Lecture lecture) {
+    public ResponseEntity<?> createLecture(@RequestBody Lecture lecture) {
         lecture.setId(10);
-        WebMvcLinkBuilder selfLinkBuilder = WebMvcLinkBuilder.linkTo(LectureController.class).slash(lecture.getId());
+        WebMvcLinkBuilder selfLinkBuilder =
+                WebMvcLinkBuilder.linkTo(LectureController.class).slash(lecture.getId());
         URI createUri = selfLinkBuilder.toUri();
         return ResponseEntity.created(createUri).body(lecture);
     }
