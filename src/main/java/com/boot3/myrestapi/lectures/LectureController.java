@@ -16,6 +16,7 @@ public class LectureController {
     @PostMapping
     public ResponseEntity<?> createLecture(@RequestBody Lecture lecture) {
         lecture.setId(10);
+        // api/lectures/10 링크를 생성
         WebMvcLinkBuilder selfLinkBuilder =
                 WebMvcLinkBuilder.linkTo(LectureController.class).slash(lecture.getId());
         URI createUri = selfLinkBuilder.toUri();
