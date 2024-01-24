@@ -43,6 +43,8 @@ public class LectureController {
         }
 
         Lecture lecture = modelMapper.map(lectureReqDto, Lecture.class);
+        //free, offline 필드 초기화
+        lecture.update();
         Lecture addedLecture = lectureRepository.save(lecture);
 
         // api/lectures/10 링크를 생성
