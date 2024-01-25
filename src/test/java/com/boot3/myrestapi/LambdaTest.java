@@ -32,13 +32,13 @@ public class LambdaTest {
             new MyCustomer(101, "john", "john@gmail.com", Arrays.asList("397937955", "21654725")),
             new MyCustomer(102, "smith", "smith@gmail.com", Arrays.asList("89563865", "2487238947")),
             new MyCustomer(103, "peter", "peter@gmail.com", Arrays.asList("38946328654", "3286487236")),
-            new MyCustomer(104, "kely", "kely@gmail.com", Arrays.asList("389246829364", "948609467"))
+            new MyCustomer(104, "kelly", "kely@gmail.com", Arrays.asList("389246829364", "948609467"))
     );
 
     @Test
     void runnable() {
         /*
-              class MyRunnabel implements Runnable{ }
+              class MyRunnable implements Runnable{ }
               new Thread(new MyRunnable());
          */
         //1. Anonymous Inner Class 형태로  Runnable을 구현하기
@@ -126,8 +126,8 @@ public class LambdaTest {
         //MyCustomer의 ID 합계 계산하기
         int sumOfId = customers.stream() //Stream<MyCustomer>
                 //mapToInt(ToIntFunction) ToIntFunction의 추상메서드 int applyAsInt(T value)
-                //.mapToInt(customer -> customer.getId())
-                .mapToInt(MyCustomer::getId) //IntStream
+                .mapToInt(customer -> customer.getId()) //IntStream
+                //.mapToInt(MyCustomer::getId) //IntStream
                 .sum();
         System.out.println("sumOfId = " + sumOfId);
 
