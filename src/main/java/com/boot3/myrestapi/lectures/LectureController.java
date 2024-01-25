@@ -54,7 +54,8 @@ public class LectureController {
            RepresentationalModelAssembler 의 추상메서드 D toModel(T entity)  D, which extends RepresentationModel
         */
         PagedModel<LectureResource> pagedModel =
-                assembler.toModel(lectureResDtoPage, resDto -> new LectureResource(resDto));
+                //assembler.toModel(lectureResDtoPage, resDto -> new LectureResource(resDto));
+                assembler.toModel(lectureResDtoPage, LectureResource::new);
         return ResponseEntity.ok(pagedModel);
     }
 
