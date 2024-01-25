@@ -20,7 +20,7 @@ public class LectureInsertRunner implements ApplicationRunner {
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		IntStream.range(0, 15) //InStream
+		IntStream.rangeClosed(1, 15) //InStream
                 //IntConsumer
                 //.forEach(index -> generateLecture(index));
                 .forEach(this::generateLecture);
