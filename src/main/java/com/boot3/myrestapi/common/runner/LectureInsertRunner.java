@@ -6,19 +6,24 @@ import com.boot3.myrestapi.lectures.LectureStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.stream.IntStream;
 
 @Component
+@Profile("prod")
 public class LectureInsertRunner implements ApplicationRunner {
 	@Autowired
     LectureRepository lectureRepository;
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		IntStream.range(0, 15).forEach(this::generateLecture);
+		IntStream.range(0, 15) //InStream
+                //IntConsumer
+                //.forEach(index -> generateLecture(index));
+                .forEach(this::generateLecture);
 	}
     private Lecture generateLecture(int index) {
         Lecture lecture = buildLecture(index);
@@ -34,7 +39,7 @@ public class LectureInsertRunner implements ApplicationRunner {
                     .endLectureDateTime(LocalDateTime.of(2022, 11, 26, 14, 21))
                     .basePrice(100)
                     .maxPrice(200)
-                    .limitOfEnrollment(100)
+                    .limitOfEnrollment(30)
                     .location(index + " 강의장")
                     .free(false)
                     .offline(true)
