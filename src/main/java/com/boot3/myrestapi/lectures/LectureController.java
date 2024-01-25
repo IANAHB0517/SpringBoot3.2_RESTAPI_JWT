@@ -21,6 +21,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.Optional;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
@@ -38,6 +39,19 @@ public class LectureController {
 //        this.lectureRepository = lectureRepository;
 //    }
 
+    @GetMapping("/{id}")
+    public ResponseEntity getLecture(@PathVariable Integer id) {
+        Optional<Lecture> optionalLecture = this.lectureRepository.findById(id);
+        if(optionalLecture.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Lecture lecture = optionalLecture.get();
+        LectureResDto lectureResDto = modelMapper.map(lecture, LectureResDto.class);
+        LectureResource lectureResource = new LectureResource(lectureResDto);
+        return ResponseEntity.ok(lectureResource);
+    }
+
     @GetMapping
     public ResponseEntity<?> queryLectures(Pageable pageable, PagedResourcesAssembler<LectureResDto> assembler) {
         System.out.println(pageable.getClass().getName());
@@ -47,8 +61,7 @@ public class LectureController {
         Page<LectureResDto> lectureResDtoPage =
                 lecturePage.map(lecture -> modelMapper.map(lecture, LectureResDto.class));
         // Page<LectureResDto> => PagedModel<EntityModel<LectureResDto>>
-//        PagedModel<EntityModel<LectureResDto>> pagedModel =
-//                assembler.toModel(lectureResDtoPage);
+//        PagedModel<EntityModel<LectureResDto>> pagedModel = assembler.toModel(lectureResDtoPage);
         /*
            PagedResourcesAssembler 의 메서드 toModel(Page<T> page, RepresentationModelAssembler<T,R> assembler)
            RepresentationalModelAssembler 의 추상메서드 D toModel(T entity)  D, which extends RepresentationModel
