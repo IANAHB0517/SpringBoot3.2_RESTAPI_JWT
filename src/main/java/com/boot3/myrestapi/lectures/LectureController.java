@@ -50,6 +50,7 @@ public class LectureController {
         //free, offline 필드 초기화
         lecture.update();
         Lecture addedLecture = lectureRepository.save(lecture);
+        //Entity => ResDto
         LectureResDto lectureResDto = modelMapper.map(addedLecture, LectureResDto.class);
 
         WebMvcLinkBuilder selfLinkBuilder =
@@ -58,7 +59,7 @@ public class LectureController {
 
         LectureResource lectureResource = new LectureResource(lectureResDto);
         lectureResource.add(linkTo(LectureController.class).withRel("query-lectures"));
-        lectureResource.add(selfLinkBuilder.withSelfRel());
+        //lectureResource.add(selfLinkBuilder.withSelfRel());
         lectureResource.add(selfLinkBuilder.withRel("update-lecture"));
 
         return ResponseEntity.created(createUri).body(lectureResource);
